@@ -7,6 +7,14 @@ modules:
       linkPattern: >-
         ^https:\/\/.+?\.slack\.com\/archives\/[C|G][A-Z0-9][^/]+\/p[\d]+$
       authType: "oauth2"
+    - key: atlassian-object-provider
+      function: atlassian-resolver
+      domains: ["atlassian.net"]
+      subdomain: true
+      linkPattern: >-
+        ^https:\/\/.+\.atlassian\.net\/browse\/.+-[\d]+#*$
+      authType: "api_key"
+      authHint: "Test hint"
   externalAuth:
     - key: slack
       scopes: []
@@ -32,10 +40,13 @@ modules:
           parameterName: token
   function:
     - key: slack-resolver
-      handler: index.run
+      handler: index.runSlack
       externalAuth: slack
+    - key: atlassian-resolver
+      handler: index.runAtlassian
 permissions:
-  scopes: []
+  scopes: 
+    - storage:app
 app:
   id: ari:cloud:ecosystem::app/e9d89f54-860c-4006-96b2-50333bba579b
   name: Polaris Forge ref app
