@@ -14,7 +14,7 @@ modules:
       linkPattern: >-
         ^https:\/\/.+\.atlassian\.net\/browse\/.+-[\d]+#*$
       authType: "api_key"
-      authHint: "Test hint"
+      authHint: "Please provide API token from <a href=\"https://id.atlassian.com/manage-profile/security/api-tokens\" target=\"_blank\">https://id.atlassian.com/manage-profile/security/api-tokens</a>"
   externalAuth:
     - key: slack
       scopes: []

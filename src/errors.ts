@@ -1,4 +1,4 @@
-import { ErrorHandlerMap } from '@atlassian/polaris-forge-object-resolver/src/provider/types';
+import { ErrorHandlerMap } from '@atlassian/polaris-forge-object-resolver';
 import { defaults } from '@atlassian/polaris-forge-object-resolver';
 import { ClientError, ProviderError } from '@atlassian/polaris-forge-object-resolver';
 

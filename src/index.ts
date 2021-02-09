@@ -24,10 +24,8 @@ export async function runSlack(event: EventPayload): Promise<ResolverResponse> {
 }
 
 export async function runAtlassian(event: EventPayload, context: { principal: { accountId }}): Promise<ResolverResponse> {
-  console.log(context.principal.accountId)
   const match = matchJiraIssue[0].exec(getResourceUrl(event))
   const token = (event as any).authToken ?  Buffer.from((event as any).authToken).toString('base64') : await storage.get(context.principal.accountId)
-  console.log(token, 'token')
   const provider = new ObjectProvider({
     client: new Client({
       baseUrl: `https://${match.groups.cloudName}.atlassian.net`,
@@ -45,7 +43,6 @@ export async function runAtlassian(event: EventPayload, context: { principal: { 
     errorHandlers: jiraErrorHandlers,
   });
   const response = await provider.execute(event);
-  console.log('response',(response as any).status)
   if (!(response as any).status && (event as any).authToken) {
     await storage.set(context.principal.accountId, token)
   }
