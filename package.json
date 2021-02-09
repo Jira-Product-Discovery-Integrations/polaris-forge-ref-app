@@ -1,0 +1,19 @@
+{
+  "name": "polaris-forge-ref-app",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/atlassianlabs/polaris-forge-ref-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/atlassianlabs/polaris-forge-ref-app#readme",
+  "dependencies": {
+    "@atlassian/polaris-forge-object-resolver": "0.0.6"
+  }
+}
