@@ -1,57 +1,39 @@
 modules:
-  # 'platform:objectProvider':
-  #   - key: slack-object-provider2
-  #     function: slack-resolver
-  #     domains: ["slack2.com"]
-  #     authType: "oauth2"
   'polaris:objectProvider':
-    # - key: slack-object-provider
-    #   function: slack-resolver
-    #   domains: ["slack.com"]
-    #   subdomain: true
-    #   linkPattern: >-
-    #     ^https:\/\/.+?\.slack\.com\/archives\/[C|G][A-Z0-9][^/]+\/p[\d]+$
-    #   authType: "oauth2"
-    - key: oauth2-provider
-      function: oauth2-resolver
-      domains: ["atlassian.net"]
+    - key: slack-object-provider
+      function: slack-resolver
+      domains: ["slack.com"]
       subdomain: true
+      linkPattern: >-
+        ^https:\/\/.+?\.slack\.com\/archives\/[C|G][A-Z0-9][^/]+\/p[\d]+$
       authType: "oauth2"
-    # - key: atlassian3-object-provider
-    #   function: noauth-resolver
-    #   domains: ["atlassian3.com"]
-    #   authType: "oauth2"
-    #   # authType: "api_key"
-    #   authHint: "Please create new API key in https://id.atlassian.com/manage-profile/security/api-tokens"
   externalAuth:
-    - key: oauth2
-      scopes:
-        - 'read:jira-work'
-        - 'read:jira-user'
-      displayName: Atlassian - Jira
+    - key: slack
+      scopes: []
+      displayName: Slack
       providerType: oauth2
-      authorizationUrl: 'https://auth.atlassian.com/authorize?audience=api.atlassian.com'
-      exchangeUrl: 'https://auth.atlassian.com/oauth/token'
-      revokeTokenUrl: 'https://auth.atlassian.com/oauth/token'
-      # additionalConsentParameters: 
-      #   cloudId: 
-      #     var: 'cloudId'
-      additionalParameters:  
-        prompt: 'consent' 
+      authorizationUrl: 'https://slack.com/oauth/v2/authorize'
+      exchangeUrl: 'https://slack.com/api/oauth.v2.access'
+      revokeTokenUrl: 'https://slack.com/api/auth.revoke'
+      additionalParameters:
+        user_scope: >-
+          reactions:read,mpim:read,im:read,channels:read,users:read
+      credentialsRetriever:
+        resolvers:
+          accessToken: 'authed_user.access_token'
       profileRetriever:
         type: url
-        value: 'https://api.atlassian.com/me'
+        value: 'https://slack.com/api/auth.test'
         resolvers:
-          id: 'account_id'
-          displayName: 'email'
+          id: user_id
+          displayName: user
         authorization:
-          location: header
-          headerName: Authorization
-          tokenPrefix: 'Bearer '
+          location: queryString
+          parameterName: token
   function:
-    - key: oauth2-resolver
-      handler: index.runOAuth2
-      externalAuth: oauth2
+    - key: slack-resolver
+      handler: index.run
+      externalAuth: slack
 permissions:
   scopes: []
 app:
