@@ -1,4 +1,4 @@
-import { ObjectProvider, Client, EventPayload, ResolverResponse, defaults } from '@atlassian/polaris-forge-object-resolver';
+import { ObjectProvider, Client, EventPayload, ResolverResponse } from '@atlassian/polaris-forge-object-resolver';
 import { matchSlackMessage } from './patterns';
 import { resolveSlackMessage } from './resolvers';
 import { formatSlackMessage } from './formatters';
