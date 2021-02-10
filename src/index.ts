@@ -3,7 +3,6 @@ import { matchSlackMessage, matchJiraIssue } from './patterns';
 import { resolveSlackMessage } from './resolvers';
 import { formatSlackMessage, formatJiraIssue } from './formatters';
 import { slackErrorHandlers, jiraErrorHandlers } from './errors';
-import { storage } from '@forge/api';
 
 export async function runSlack(event: EventPayload): Promise<ResolverResponse> {
   const provider = new ObjectProvider({
@@ -23,9 +22,8 @@ export async function runSlack(event: EventPayload): Promise<ResolverResponse> {
   return await provider.execute(event);
 }
 
-export async function runAtlassian(event: EventPayload, context: { principal: { accountId }}): Promise<ResolverResponse> {
+export async function runAtlassian(event: EventPayload): Promise<ResolverResponse> {
   const match = matchJiraIssue[0].exec(getResourceUrl(event))
-  const token = (event as any).authToken ?  Buffer.from((event as any).authToken).toString('base64') : await storage.get(context.principal.accountId)
   const provider = new ObjectProvider({
     client: new Client({
       baseUrl: `https://${match.groups.cloudName}.atlassian.net`,
@@ -35,16 +33,11 @@ export async function runAtlassian(event: EventPayload, context: { principal: { 
         pattern: matchJiraIssue,
         resolver: async (client, url, match) => client.get(`/rest/api/3/issue/${match.issueKey}`, { headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Basic ${token}`
           }}),
         formatter: formatJiraIssue,
       },
     },
     errorHandlers: jiraErrorHandlers,
   });
-  const response = await provider.execute(event);
-  if (!(response as any).status && (event as any).authToken) {
-    await storage.set(context.principal.accountId, token)
-  }
-  return response
+  return await provider.execute(event);
 }
