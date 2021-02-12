@@ -1,6 +1,6 @@
 import { ObjectProvider, Client, EventPayload, ResolverResponse, getResourceUrl } from '@atlassian/polaris-forge-object-resolver';
 import { matchSlackMessage, matchJiraIssue } from './patterns';
-import { resolveSlackMessage } from './resolvers';
+import { resolveSlackMessage, resolveJiraIssue } from './resolvers';
 import { formatSlackMessage, formatJiraIssue } from './formatters';
 import { slackErrorHandlers, jiraErrorHandlers } from './errors';
 
@@ -31,9 +31,7 @@ export async function runAtlassian(event: EventPayload): Promise<ResolverRespons
     linkResolvers: {
       issue: {        
         pattern: matchJiraIssue,
-        resolver: async (client, url, match) => client.get(`/rest/api/3/issue/${match.issueKey}`, { headers: {
-            'Content-Type': 'application/json',
-          }}),
+        resolver: resolveJiraIssue,
         formatter: formatJiraIssue,
       },
     },
