@@ -36,3 +36,5 @@ TEST*.xml
 Thumbs.db
 
 tsconfig.tsbuildinfo
+
+.env

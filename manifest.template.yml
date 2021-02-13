@@ -14,7 +14,7 @@ modules:
       linkPattern: >-
         ^https:\/\/.+\.atlassian\.net\/browse\/.+-[\d]+#*$
       authType: "api_key"
-      authHint: "Please provide API token from <a href=\"https://id.atlassian.com/manage-profile/security/api-tokens\" target=\"_blank\">https://id.atlassian.com/manage-profile/security/api-tokens</a>"
+      authHint: "Please provide API token from <a href=\"${ATLASSIAN_ID_URL}/manage-profile/security/api-tokens\" target=\"_blank\">${ATLASSIAN_ID_URL}/manage-profile/security/api-tokens</a>"
   externalAuth:
     - key: slack
       scopes: []
@@ -48,5 +48,5 @@ permissions:
   scopes: 
     - storage:app
 app:
-  id: ari:cloud:ecosystem::app/e9d89f54-860c-4006-96b2-50333bba579b
+  id: ari:cloud:ecosystem::app/${FORGE_APP_ID}
   name: Polaris Forge ref app
