@@ -1,0 +1,50 @@
+image: node:14.15
+
+definitions:
+  caches:
+    npm: ~/.npm
+
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Deploy development
+          deployment: development
+          caches: [npm]
+          script:
+            - set -euf
+            - pipe: 'atlassian/artifactory-sidekick:v1'
+            - source .artifactory/activate.sh
+            - npm i -g @forge/cli --unsafe-perm=true --allow-root
+            - npm ci
+            - npm run manifest:ci
+            - forge deploy -e $FORGE_ENV --no-verify --verbose
+            - scripts/setExternalAuthCreds.sh
+      - step:
+          name: Deploy staging
+          deployment: staging
+          caches: [npm]
+          script:
+            - set -euf
+            - pipe: 'atlassian/artifactory-sidekick:v1'
+            - source .artifactory/activate.sh
+            - npm i -g @forge/cli --unsafe-perm=true --allow-root
+            - npm ci
+            - npm run manifest:ci
+            - forge deploy -e $FORGE_ENV --no-verify --verbose
+            - scripts/setExternalAuthCreds.sh
+      - step:
+          name: Deploy production
+          deployment: production
+          trigger: manual
+          caches: [npm]
+          script:
+            - set -euf
+            - pipe: 'atlassian/artifactory-sidekick:v1'
+            - source .artifactory/activate.sh
+            - npm i -g @forge/cli --unsafe-perm=true --allow-root
+            - npm ci
+            - npm run manifest:ci
+            - forge deploy -e $FORGE_ENV --no-verify --verbose
+            - scripts/setExternalAuthCreds.sh
