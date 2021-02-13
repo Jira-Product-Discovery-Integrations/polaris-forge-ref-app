@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -eux
 
 curl --location --request POST $FORGE_GRAPHQL_GATEWAY \
 -u $FORGE_EMAIL:$FORGE_API_TOKEN \
