@@ -19,7 +19,7 @@ pipelines:
             - npm ci
             - npm run manifest:ci
             - forge deploy -e $FORGE_ENV --no-verify --verbose
-            - npm run externalAuth:set -- --email $FORGE_EMAIL --api-token $FORGE_API_TOKEN --forge-app-id $FORGE_APP_ID --forge-env $FORGE_ENV --service-key $PROVIDER_SERVICE_KEY --client-id $PROVIDER_CLIENT_ID --client-secret $PROVIDER_CLIENT_SECRET
+            - npm run externalAuth:set -- --email $FORGE_EMAIL --api-token $FORGE_API_TOKEN --forge-app-id $FORGE_APP_ID --forge-env $FORGE_ENV --service-key $PROVIDER_SERVICE_KEY --client-id $PROVIDER_CLIENT_ID --client-secret $PROVIDER_CLIENT_SECRET --api-private-graphql-url $FORGE_GRAPHQL_GATEWAY
       - step:
           name: Deploy production
           deployment: production
