@@ -5,5 +5,5 @@ export const matchSlackMessage: ObjectPattern = [
 ];
 
 export const matchJiraIssue: ObjectPattern = [
-  /^https:\/\/(?<cloudName>.+)\.(atlassian\.net|jira-dev\.com)\/browse\/(?<issueKey>.+-\d+)#?$/,
+  /^https:\/\/(?<cloudName>.+)\.atlassian\.net\/browse\/(?<issueKey>.+-\d+)#?$/,
 ];
