@@ -14,7 +14,7 @@ modules:
       linkPattern: >-
         ^https:\/\/(.+)\.(atlassian\.net|jira-dev\.com)\/browse\/(.+-\d+)#?$
       authType: "api_key"
-      authHint: "Please provide API token from <a href=\"${ATLASSIAN_ID_BASE_URL}/manage-profile/security/api-tokens\" target=\"_blank\">${ATLASSIAN_ID_BASE_URL}/manage-profile/security/api-tokens</a> in format \"<email>:<api_token>\""
+      authHint: "Please provide API token from <a href=\"http://id.atlassian.com/manage-profile/security/api-tokens\" target=\"_blank\">http://id.atlassian.com/manage-profile/security/api-tokens</a> in format \"$email:$api_token\""
   externalAuth:
     - key: slack
       scopes: []
