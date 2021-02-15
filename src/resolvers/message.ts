@@ -1,4 +1,4 @@
-import { Client } from '@atlassian/polaris-forge-object-resolver';
+import { Client } from '@atlassianintegrations/polaris-forge-object-resolver';
 import { getMessage, getChannel, getUser } from './requests';
 import { MessageMatch } from '../patterns/type';
 

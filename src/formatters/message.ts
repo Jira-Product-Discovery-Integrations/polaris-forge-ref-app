@@ -1,4 +1,4 @@
-import { JSONSchema } from '@atlassian/polaris-forge-object-resolver';
+import { JSONSchema } from '@atlassianintegrations/polaris-forge-object-resolver';
 
 export interface ChannelFormatterParams {
   url: string;

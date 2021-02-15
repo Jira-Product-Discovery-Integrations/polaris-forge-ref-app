@@ -1,7 +1,7 @@
 {
   "include": [
     "src/**/*.ts",
-    "node_modules/@atlassian/polaris-forge-object-resolver/src/provider/types.ts"
+    "node_modules/@atlassianintegrations/polaris-forge-object-resolver/src/provider/types.ts"
   ],
   "exclude": [
     "node_modules",

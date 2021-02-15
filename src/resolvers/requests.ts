@@ -1,4 +1,4 @@
-import { Client, ClientError } from '@atlassian/polaris-forge-object-resolver';
+import { Client, ClientError } from '@atlassianintegrations/polaris-forge-object-resolver';
 import { WebAPICallResult } from '@slack/web-api';
 import { MessageMatch } from '../patterns/type';
 

@@ -13,11 +13,11 @@
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/atlassianlabs/polaris-forge-ref-app.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "asokolov@atlassian.com",
+  "license": "MIT",
   "homepage": "https://bitbucket.org/atlassianlabs/polaris-forge-ref-app#readme",
   "dependencies": {
-    "@atlassian/polaris-forge-object-resolver": "0.0.18",
+    "@atlassianintegrations/polaris-forge-object-resolver": "0.0.1",
     "@slack/web-api": "^6.0.0"
   },
   "devDependencies": {

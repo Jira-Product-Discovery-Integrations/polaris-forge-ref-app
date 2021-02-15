@@ -1,6 +1,6 @@
-import { ErrorHandlerMap } from '@atlassian/polaris-forge-object-resolver';
-import { defaults } from '@atlassian/polaris-forge-object-resolver';
-import { ClientError, ProviderError } from '@atlassian/polaris-forge-object-resolver';
+import { ErrorHandlerMap } from '@atlassianintegrations/polaris-forge-object-resolver';
+import { defaults } from '@atlassianintegrations/polaris-forge-object-resolver';
+import { ClientError, ProviderError } from '@atlassianintegrations/polaris-forge-object-resolver';
 
 export const slackErrorHandlers: ErrorHandlerMap = {
   401: () => ({ meta: defaults.meta.unauthorized, data: undefined }),

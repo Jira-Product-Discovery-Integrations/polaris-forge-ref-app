@@ -12,9 +12,6 @@ pipelines:
           deployment: staging
           caches: [npm]
           script:
-            - set -euf
-            - pipe: 'atlassian/artifactory-sidekick:v1'
-            - source .artifactory/activate.sh
             - npm i -g @forge/cli --unsafe-perm=true --allow-root
             - npm ci
             - npm run manifest:ci
@@ -26,9 +23,6 @@ pipelines:
           trigger: manual
           caches: [npm]
           script:
-            - set -euf
-            - pipe: 'atlassian/artifactory-sidekick:v1'
-            - source .artifactory/activate.sh
             - npm i -g @forge/cli --unsafe-perm=true --allow-root
             - npm ci
             - npm run manifest:ci

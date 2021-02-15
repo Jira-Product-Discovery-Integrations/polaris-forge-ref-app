@@ -1,4 +1,4 @@
-import { Client } from "@atlassian/polaris-forge-object-resolver";
+import { Client } from "@atlassianintegrations/polaris-forge-object-resolver";
 import { MessageMatch } from "../patterns/type";
 
 export const resolveJiraIssue = async (client: Client , url: string, match: MessageMatch) =>
