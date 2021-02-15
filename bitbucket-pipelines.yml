@@ -19,7 +19,7 @@ pipelines:
             - npm ci
             - npm run manifest:ci
             - forge deploy -e $FORGE_ENV --no-verify --verbose
-            - scripts/setExternalAuthCreds.sh
+            - npm run externalAuth:set -- --email $FORGE_EMAIL --api-token $FORGE_API_TOKEN --forge-app-id $FORGE_APP_ID --forge-env $FORGE_ENV --service-key $PROVIDER_SERVICE_KEY --client-id $PROVIDER_CLIENT_ID --client-secret $PROVIDER_CLIENT_SECRET
       - step:
           name: Deploy production
           deployment: production
@@ -33,4 +33,4 @@ pipelines:
             - npm ci
             - npm run manifest:ci
             - forge deploy -e $FORGE_ENV --no-verify --verbose
-            - scripts/setExternalAuthCreds.sh
+            - npm run externalAuth:set -- --email $FORGE_EMAIL --api-token $FORGE_API_TOKEN --forge-app-id $FORGE_APP_ID --forge-env $FORGE_ENV --service-key $PROVIDER_SERVICE_KEY --client-id $PROVIDER_CLIENT_ID --client-secret $PROVIDER_CLIENT_SECRET

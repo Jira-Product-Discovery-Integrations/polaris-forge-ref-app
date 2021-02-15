@@ -9,12 +9,12 @@ modules:
       authType: "oauth2"
     - key: atlassian-object-provider
       function: atlassian-resolver
-      domains: ["atlassian.net"]
+      domains: ["atlassian.net", "jira-dev.com"]
       subdomain: true
       linkPattern: >-
-        ^https:\/\/.+\.atlassian\.net\/browse\/.+-[\d]+#*$
+        ^https:\/\/(?<cloudName>.+)\.(atlassian\.net|jira-dev\.com)\/browse\/(?<issueKey>.+-\d+)#?$
       authType: "api_key"
-      authHint: "Please provide API token from <a href=\"${ATLASSIAN_ID_BASE_URL}/manage-profile/security/api-tokens\" target=\"_blank\">${ATLASSIAN_ID_BASE_URL}/manage-profile/security/api-tokens</a>"
+      authHint: "Please provide API token from <a href=\"${ATLASSIAN_ID_BASE_URL}/manage-profile/security/api-tokens\" target=\"_blank\">${ATLASSIAN_ID_BASE_URL}/manage-profile/security/api-tokens</a> in format \"<email>:<api_token>\""
   externalAuth:
     - key: slack
       scopes: []
