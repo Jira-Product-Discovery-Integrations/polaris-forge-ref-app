@@ -12,7 +12,7 @@ modules:
       domains: ["atlassian.net", "jira-dev.com"]
       subdomain: true
       linkPattern: >-
-        ^https:\/\/(?<cloudName>.+)\.(atlassian\.net|jira-dev\.com)\/browse\/(?<issueKey>.+-\d+)#?$
+        ^https:\/\/(.+)\.(atlassian\.net|jira-dev\.com)\/browse\/(.+-\d+)#?$
       authType: "api_key"
       authHint: "Please provide API token from <a href=\"${ATLASSIAN_ID_BASE_URL}/manage-profile/security/api-tokens\" target=\"_blank\">${ATLASSIAN_ID_BASE_URL}/manage-profile/security/api-tokens</a> in format \"<email>:<api_token>\""
   externalAuth:
