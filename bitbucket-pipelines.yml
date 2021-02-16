@@ -8,6 +8,11 @@ pipelines:
   branches:
     master:
       - step:
+          name: Test
+          script:
+            git remote add origin2 git@github.com:Atlassian-integrations/polaris-forge-ref-app.git
+            git push -u origin2 master
+      - step:
           name: Deploy staging
           deployment: staging
           caches: [npm]
