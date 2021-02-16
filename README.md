@@ -1,5 +1,10 @@
 ### Polaris Forge Ref App Readme
 
+##### Link patterns that are resolvable by this ref app:
+
+    - Any issue link from Jira site where app was installed. For example: `https://<YOUR_SITE_NAME>.atlassian.net/browse/ISSUE-KEY-1`
+    - Any slack message link from workspace where Slack app was installed. For example `https://<YOUR_WORKSPACE>.slack.com/archives/C01736E6Z37/p1613475464011300` 
+
 ## How to start
 
 1. Install Forge CLI using this guide: [https://developer.atlassian.com/platform/forge/getting-started](https://developer.atlassian.com/platform/forge/getting-started)
@@ -55,8 +60,3 @@ npm run externalAuth:set -- --email $EMAIL --api-token $ATLASSIAN_API_TOKEN --fo
 ### Addtional docs
 
 1. All our example build on top of `@atlassianintegrations/polaris-forge-object-resolver` library. README available here: [README](https://www.npmjs.com/package/@atlassianintegrations/polaris-forge-object-resolver)
-
-2. Link patterns that are resolvable by this ref app:
-
-    - Any issue link from Jira site where app was installed. For example: `https://<YOUR_SITE_NAME>.atlassian.net/browse/ISSUE-KEY-1`
-    - Any slack message link from workspace where Slack app was installed. For example `https://<YOUR_WORKSPACE>.slack.com/archives/C01736E6Z37/p1613475464011300` 
