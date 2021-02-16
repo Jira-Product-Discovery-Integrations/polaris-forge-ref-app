@@ -10,7 +10,7 @@
 npm i 
 ```
 
-3. Create `.env` file from `.env.default` and define missing variables (ignore FORGE_APP_ID for now).
+3. Create `.env` file from `.env.default` and define missing variables (ignore `FORGE_APP_ID` for now).
 
 4. Generate manifest from template with command:
 
