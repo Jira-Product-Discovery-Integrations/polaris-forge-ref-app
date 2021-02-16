@@ -8,12 +8,11 @@ pipelines:
   branches:
     master:
       - step:
-          name: Test
+          name: Sync with Github
           script:
             - (umask  077 ; echo $GITHUB_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
-            - cat ~/.ssh/id_rsa
-            - git remote add origin2 git@github.com:Atlassian-integrations/polaris-forge-ref-app.git
-            - git push -u origin2 master
+            - git remote add origin_github git@github.com:Atlassian-integrations/polaris-forge-ref-app.git
+            - git push -u origin_github master
       - step:
           name: Deploy staging
           deployment: staging
