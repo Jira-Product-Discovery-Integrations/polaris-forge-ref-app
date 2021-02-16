@@ -50,7 +50,7 @@ forge register
 npm run externalAuth:set -- --email $EMAIL --api-token $ATLASSIAN_API_TOKEN --forge-app-id $FORGE_APP_ID --forge-env $FORGE_ENV --service-key $EXTERNAL_AUTH_SERVICE_KEY --client-id $SLACK_CLIENT_ID --client-secret $SLACK_CLIENT_SECRET
 ```
 
-**`$EXTERNAL_AUTH_SERVICE_KEY` is defined in `manifest.yml` in `externalAuth` section as `key` and equals to `slack` in our case. **
+** `$EXTERNAL_AUTH_SERVICE_KEY` is defined in `manifest.yml` in `externalAuth` section as `key` and equals to `slack` in our case. **
 
 11. All set 🎉
 
