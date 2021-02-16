@@ -48,5 +48,5 @@ permissions:
   scopes: 
     - storage:app
 app:
-  id: ari:cloud:ecosystem::app/${FORGE_APP_ID}
-  name: Polaris Forge ref app
+  id: ari:cloud:ecosystem::app/754676a6-b237-441a-a024-86adad070504
+  name: Polaris Forge ref app (asokolov)
