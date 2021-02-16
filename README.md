@@ -52,7 +52,7 @@ npm run externalAuth:set -- --email $EMAIL --api-token $ATLASSIAN_API_TOKEN --fo
 
 **`$EXTERNAL_AUTH_SERVICE_KEY` is defined in `manifest.yml` in `externalAuth` section as `key` and equals to `slack` in our case. **
 
-10. All set 🎉
+11. All set 🎉
 
 ### Addtional docs
 
