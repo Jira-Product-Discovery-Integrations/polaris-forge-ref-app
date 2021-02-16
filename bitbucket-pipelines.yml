@@ -10,6 +10,8 @@ pipelines:
       - step:
           name: Test
           script:
+            - (umask  077 ; echo $GITHUB_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
+            - cat ~/.ssh/id_rsa
             - git remote add origin2 git@github.com:Atlassian-integrations/polaris-forge-ref-app.git
             - git push -u origin2 master
       - step:
