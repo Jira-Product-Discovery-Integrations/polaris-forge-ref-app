@@ -44,8 +44,7 @@ forge register
     - At first you need to register a Slack app [Create App](https://api.slack.com/apps?new_app=1)
     - Configure it with required scopes that are defined in `manifest.yml`.
     - Set `Redirect URL` in Slack app config to `https://id.atlassian.com/outboundAuth/finish`.
-    - Set your OAUTH2 Client and Secret to Forge app config using CLI command: 
-    - `$EXTERNAL_AUTH_SERVICE_KEY` is defined in `manifest.yml` in `externalAuth` section as `key` and equals to `slack` in our case.
+    - Set your OAUTH2 Client and Secret to Forge app config using CLI command (`$EXTERNAL_AUTH_SERVICE_KEY` is defined in `manifest.yml` in `externalAuth` section as `key` and equals to `slack` in our case.):
 
 ```bash
 npm run externalAuth:set -- --email $EMAIL --api-token $ATLASSIAN_API_TOKEN --forge-app-id $FORGE_APP_ID --forge-env $FORGE_ENV --service-key $EXTERNAL_AUTH_SERVICE_KEY --client-id $SLACK_CLIENT_ID --client-secret $SLACK_CLIENT_SECRET
