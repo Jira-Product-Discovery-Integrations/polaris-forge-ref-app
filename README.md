@@ -20,7 +20,7 @@ npm run manifest
 
 5. Once Forge CLI is installed you need to create new app using command (confirm app details rewrite on promt):
 
- ```bash
+```bash
 forge register
 ```
 
@@ -29,13 +29,13 @@ forge register
 7. Deploy app to development env (`--no-verify ` is required)
 
 
- ```bash
+```bash
  forge deploy -e development --no-verify 
 ```
 
 8. Install app to some cloud 
 
- ```bash
+```bash
  forge install -p Jira -s <YOUR_SITE_NAME>.atlassian.net
 ```
 9. Go to Polaris Data Tab and test your URL's
