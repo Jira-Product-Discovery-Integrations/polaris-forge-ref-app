@@ -40,7 +40,7 @@ forge register
 ```
 9. Go to Polaris Data Tab and test your URL's
 
-10. (Optional) If you want to test OAUTH2 app example you need to register a Slack app, configure it with required scopes that are defined in `manifest.yml`. \
+10. (Optional) If you want to test OAUTH2 app example, at first you need to register a Slack app, configure it with required scopes that are defined in `manifest.yml`. \
 Also define Redirect URL in Slack app config to `https://id.atlassian.com/outboundAuth/finish`. \
 And set your OAUTH2 Client and Secret to Forge app config using CLI command: 
 
