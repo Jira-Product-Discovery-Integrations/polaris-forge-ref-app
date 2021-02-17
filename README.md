@@ -25,7 +25,8 @@ The unfurl providers are built on and hosted on [Atlassian Forge](https://develo
 npm i 
 ```
 
-3. Create a .env file from .env.default and define missing variables (ignore `FORGE_APP_ID` for now).
+3. Create a `.env` file from `.env.default` and define missing variables (ignore `FORGE_APP_ID` for now).
+
 4. Generate a manifest from the template using the following command:
 
 ```bash
@@ -38,11 +39,13 @@ npm run manifest
 forge register
 ```
 
-6. Copy the generated `FORGE_APP_ID` from the app section in `manifest.yml` back to `.env`
-7. Deploy the app to the development environment (`--no-verify`  is required)
+6. Copy the generated `FORGE_APP_ID` from the `app` section in `manifest.yml` back to `.env` 
+
+7. Deploy the app to the development environment (`--no-verify ` is required)
+
 
 ```bash
- forge deploy -e development --no-verify
+ forge deploy -e development --no-verify 
 ```
 
 8. Install the app on a Jira site:
@@ -50,16 +53,14 @@ forge register
 ```bash
  forge install -p Jira -s <YOUR_SITE_NAME>.atlassian.net
 ```
+9. Open a Polaris idea, open the Data Tab and test unfurling a URL to a Jira issue. Something in the form of: `https://<YOUR_SITE_NAME>.atlassian.net/browse/ISSUE-KEY-1` (from the same site or another site should work, as long as the user has access to this URL). This should return a card with information about the Jira issue.
 
-9. Open a Polaris idea, open the Data Tab and test unfurling a URL to a Jira issue. Something in the form of: https://<YOUR_SITE_NAME>.atlassian.net/browse/ISSUE-KEY-1 (from the same site or another site should work, as long as the user has access to this URL). This should return a card with information about the Jira issue.
+10. Test a URL using OAuth2 authentication, we've added an example unfurling a link to a Slack message: 
 
-10. Test a URL using OAuth2 authentication, we\'ve added an example unfurling a link to a Slack message:
-
-First, create a Slack app [Create App](https://api.slack.com/apps?new_app=1).
-
+First, create a Slack app [Create App](https://api.slack.com/apps?new_app=1)
 - Open the "OAuth & Permissions" tab
-- Set Redirect URL to `https://id.atlassian.com/outboundAuth/finish`.
-- In the Scopes / User Token Scopes section add the OAuth scopes listed in `manifest.yml`.
+- Set `Redirect URL` to `https://id.atlassian.com/outboundAuth/finish`.
+- In the `Scopes / User Token Scopes` section add the OAuth scopes listed in `manifest.yml`.
 
 Then run the following command to set up the OAuth2 client for your custom Slack app in Forge:
 
@@ -68,13 +69,13 @@ npm run externalAuth:set -- --email $EMAIL --api-token $ATLASSIAN_API_TOKEN --fo
 ```
 
 With the following values:
-- `$EMAIL` is your `@atlassian.com` email address
+- `$EMAIL` is your @atlassian.com email address
 - `$ATLASSIAN_API_TOKEN`: [generate an Atlassian API token](https://id.atlassian.com/manage-profile/security/api-tokens)
-- `$FORGE_APP_ID`: copy your Forge app id from manifest.yml, after you strip out the ari:cloud:ecosystem::app/ part. E.g. if the id is ari:cloud:ecosystem::app/cc531b66-7b42-474c-bbd7-805c73d0asdfasd then you should set the value as cc531b66-7b42-474c-bbd7-805c73d0asdfasd
-- set `$FORGE_ENV` to default
-- set `$EXTERNAL_AUTH_SERVICE_KEY` to slack
-- `$SLACK_CLIENT_ID`: Copy the value from the Slack app configuration, in Basic information / App Credentials / Client ID
-- `$SLACK_CLIENT_SECRET`: Copy the value from the Slack app configuration, in Basic information / App Credentials / Client Secret
+- `$FORGE_APP_ID`: copy your Forge app id from `manifest.yml`, after you strip out the `ari:cloud:ecosystem::app/` part. E.g. if the id is `ari:cloud:ecosystem::app/cc531b66-7b42-474c-bbd7-805c73d0asdfasd` then you should set the value as `cc531b66-7b42-474c-bbd7-805c73d0asdfasd`
+- set `$FORGE_ENV` to `default`
+- set `$EXTERNAL_AUTH_SERVICE_KEY` to `slack`
+- `$SLACK_CLIENT_ID`: Copy the value from the Slack app configuration, in `Basic information / App Credentials / Client ID`
+- `$SLACK_CLIENT_SECRET`: Copy the value from the Slack app configuration, in `Basic information / App Credentials / Client Secret`
 
 11. Go to Slack, in a public channel, and copy the link to a Slack message (Right click on a message > copy link). Open a Polaris idea, open the Data Tab and test unfurling that URL. It should return a card with information about the Slack message.
 
@@ -82,4 +83,4 @@ With the following values:
 
 ### Addtional docs
 
-1. All our example build on top of the @atlassianintegrations/polaris-forge-object-resolver library. The README available here: [README](https://www.npmjs.com/package/@atlassianintegrations/polaris-forge-object-resolver)
+1. All our example build on top of the `@atlassianintegrations/polaris-forge-object-resolver` library. The README available here: [README](https://www.npmjs.com/package/@atlassianintegrations/polaris-forge-object-resolver)
