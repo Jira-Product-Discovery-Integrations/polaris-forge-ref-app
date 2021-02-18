@@ -39,7 +39,13 @@ npm run manifest
 forge register
 ```
 
-6. Copy the generated `FORGE_APP_ID` from the `app` section in `manifest.yml` back to `.env` 
+6. Find your `FORGE_APP_ID` using this command:
+
+```bash
+npm run forge:appInfo
+```
+
+6. Copy the generated `FORGE_APP_ID` back to `.env` 
 
 7. Deploy the app to the development environment (`--no-verify ` is required)
 
@@ -71,8 +77,8 @@ npm run externalAuth:set -- --email $EMAIL --api-token $ATLASSIAN_API_TOKEN --fo
 With the following values:
 - `$EMAIL` is your @atlassian.com email address
 - `$ATLASSIAN_API_TOKEN`: [generate an Atlassian API token](https://id.atlassian.com/manage-profile/security/api-tokens)
-- `$FORGE_APP_ID`: copy your Forge app id from `manifest.yml`, after you strip out the `ari:cloud:ecosystem::app/` part. E.g. if the id is `ari:cloud:ecosystem::app/cc531b66-7b42-474c-bbd7-805c73d0asdfasd` then you should set the value as `cc531b66-7b42-474c-bbd7-805c73d0asdfasd`
-- set `$FORGE_ENV` to `default`
+- `$FORGE_APP_ID`: run `npm run forge:appInfo` command to find your Forge app id
+- set `$FORGE_ENV` to `development`
 - set `$EXTERNAL_AUTH_SERVICE_KEY` to `slack`
 - `$SLACK_CLIENT_ID`: Copy the value from the Slack app configuration, in `Basic information / App Credentials / Client ID`
 - `$SLACK_CLIENT_SECRET`: Copy the value from the Slack app configuration, in `Basic information / App Credentials / Client Secret`

@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc -b",
     "externalAuth:set": "polaris-forge-object-resolver externalAuth:set",
+    "forge:appInfo": "polaris-forge-object-resolver forge:appInfo",
     "manifest": "eval $(cat .env) node manifest.js",
     "manifest:ci": "node manifest.js"
   },
@@ -17,7 +18,7 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/atlassianlabs/polaris-forge-ref-app#readme",
   "dependencies": {
-    "@atlassianintegrations/polaris-forge-object-resolver": "0.0.1",
+    "@atlassianintegrations/polaris-forge-object-resolver": "0.0.3",
     "@slack/web-api": "^6.0.0"
   },
   "devDependencies": {
