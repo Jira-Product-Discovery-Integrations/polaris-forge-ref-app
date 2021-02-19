@@ -87,6 +87,8 @@ With the following values:
 
 12. All set 🎉
 
+13. In addition to pull model we support pushing data via API. Read more [here](push_example/README.md)
+
 ### Addtional docs
 
 1. All our example build on top of the `@atlassianintegrations/polaris-forge-object-resolver` library. The README available here: [README](https://www.npmjs.com/package/@atlassianintegrations/polaris-forge-object-resolver)

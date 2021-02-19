@@ -8,7 +8,8 @@
     "externalAuth:set": "polaris-forge-object-resolver externalAuth:set",
     "forge:appInfo": "polaris-forge-object-resolver forge:appInfo",
     "manifest": "eval $(cat .env) node manifest.js",
-    "manifest:ci": "node manifest.js"
+    "manifest:ci": "node manifest.js",
+    "push:example": "ts-node push_example"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,14 @@
     "@slack/web-api": "^6.0.0"
   },
   "devDependencies": {
+    "@atlassianintegrations/polaris-object-provider": "0.0.2",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
     "eslint": "^7.19.0",
+    "graphql-tag": "^2.11.0",
+    "meow": "^9.0.0",
+    "node-fetch": "^2.6.1",
     "string-env-interpolation": "^1.0.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
