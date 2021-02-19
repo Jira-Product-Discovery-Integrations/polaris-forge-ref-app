@@ -11,6 +11,9 @@ import * as chalk from "chalk";
 
 global.fetch = require('node-fetch');
 
+const PORT = 7777;
+const redirectUrl = `http://localhost:${PORT}`;
+
 const cli = meow(
   `
 	Usage
@@ -30,46 +33,60 @@ const cli = meow(
         type: 'string',
         isRequired: true,
       },
+      userMessage: {
+        type: 'string',
+      },
     },
   },
 );
 
-const matchJiraIssue = /^https:\/\/(?<cloudName>.+)\.atlassian\.net\/browse\/(?<issueKey>.+-\d+)#?$/;
+const { issueUrl, atlassianAppClientId, atlassianAppClientSecret, userMessage } = cli.flags;
 
-const match = matchJiraIssue.exec(cli.flags.issueUrl)
+const matchJiraIssue = /^(?<cloudHost>https:\/\/.+\.atlassian\.net)\/browse\/(?<issueKey>.+-\d+)#?$/;
 
-if (!match || !match.groups || !match.groups.cloudName || !match.groups.issueKey) {
+const match = matchJiraIssue.exec(issueUrl)
+
+if (!match || !match.groups || !match.groups.cloudHost || !match.groups.issueKey) {
   throw new Error('issueUrl flag is invalid')
 }
 
-const siteUrl = `https://${match.groups.cloudName}.atlassian.net`
+const { cloudHost, issueKey } = match.groups;
+
+const appScopes = [
+  "read:jira-work"
+]
 
 const getAuthorizationLink = (redirectUrl) => {
-  return `https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${cli.flags.atlassianAppClientId}&scope=read%3Ajira-work&redirect_uri=${encodeURI(
-    redirectUrl
-  )}&state=&response_type=code&prompt=consent`;
+  return `https://auth.atlassian.com/authorize?\
+audience=api.atlassian.com&\
+client_id=${atlassianAppClientId}&\
+scope=${encodeURIComponent(appScopes.join(','))}&\
+redirect_uri=${encodeURIComponent(redirectUrl)}&\
+state=&\
+response_type=code&\
+prompt=consent`;
 };
 
-const onRequest = async (tunnelUrl, query) => {
+const onRequest = async (query) => {
   try {
-    const token = await getAccessToken(cli.flags.atlassianAppClientId, cli.flags.atlassianAppClientSecret, tunnelUrl, query.code);
+    const token = await getAccessToken(atlassianAppClientId, atlassianAppClientSecret, redirectUrl, query.code);
     const accessibleResources = await getAccessibleResources(token);
     if (accessibleResources.length === 0) {
       throw new Error('Get accessible resources call to Jira returned empty list')
     }
     let cloudId = null;
     for (let accessibleResource of accessibleResources) {
-      if (accessibleResource.url === siteUrl) {
+      if (accessibleResource.url === cloudHost) {
         cloudId = accessibleResource.id;
       }
     }
     if (!cloudId) {
       throw new Error('Issue url host doesn\'t not match to any accessible resource')
     }
-    const issue = await getIssue(token, siteUrl, match.groups.issueKey)
+    const issue = await getIssue(token, cloudHost, issueKey)
 
     await createInsight(token, {
-      input: createInsightInput(cloudId, issue.fields.project.id, issue.id, cli.flags.atlassianAppClientId)
+      input: createInsightInput(cloudId, issue.fields.project.id, issue.id, atlassianAppClientId, userMessage)
     })
   } catch (err) {
     console.error(chalk.bold.red(err))
@@ -78,12 +95,10 @@ const onRequest = async (tunnelUrl, query) => {
 };
 
 const onSuccess = (res) => {
-  res.end(`<meta charset="UTF-8"> Success 🥳. Open issue <a href="${cli.flags.issueUrl}" target="_blank">${cli.flags.issueUrl}</a> and navigate to Data tab to see results.`);
+  res.end(`<meta charset="UTF-8"> <h3 style="margin: 40px auto; text-align: center;">Success 🥳. Open the issue <a href="${issueUrl}" target="_blank">${issueUrl}</a> and navigate to Data tab to see results.</h3>`);
 }
 
 (async () => {
-  const PORT = 7777;
-  const tunnelUrl = await createServer(PORT, onRequest, onSuccess);
-  console.log(`ngrok tunnel url: ${chalk.bold.green(tunnelUrl)}`)
-  console.log(`authorization url: ${chalk.bold.green(getAuthorizationLink(tunnelUrl))}`)
+  await createServer(PORT, onRequest, onSuccess);
+  console.log(`Authorization url: ${chalk.bold.green(getAuthorizationLink(redirectUrl))}`)
 })();

@@ -9,6 +9,6 @@ export const getIssue = (token, siteUrl, issueKey) => {
                 if (response.status === 200) {
                   return await response.json();
                 }
-                throw new Error(`${response.status}: ${response.statusText}`);
+                throw new Error(`Failed to fetch issue. Status ${response.status}: ${response.statusText}`);
             });
 }

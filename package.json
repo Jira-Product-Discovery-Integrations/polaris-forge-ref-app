@@ -30,7 +30,6 @@
     "eslint": "^7.19.0",
     "graphql-tag": "^2.11.0",
     "meow": "^9.0.0",
-    "ngrok": "^3.4.0",
     "node-fetch": "^2.6.1",
     "string-env-interpolation": "^1.0.1",
     "ts-node": "^9.1.1",
