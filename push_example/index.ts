@@ -53,14 +53,15 @@ if (!match || !match.groups || !match.groups.cloudHost || !match.groups.issueKey
 const { cloudHost, issueKey } = match.groups;
 
 const appScopes = [
+  "read:jira-user",
   "read:jira-work"
-]
+];
 
 const getAuthorizationLink = (redirectUrl) => {
   return `https://auth.atlassian.com/authorize?\
 audience=api.atlassian.com&\
 client_id=${atlassianAppClientId}&\
-scope=${encodeURIComponent(appScopes.join(','))}&\
+scope=${encodeURIComponent(appScopes.join(' '))}&\
 redirect_uri=${encodeURIComponent(redirectUrl)}&\
 state=&\
 response_type=code&\
