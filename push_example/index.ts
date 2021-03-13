@@ -54,7 +54,8 @@ const { cloudHost, issueKey } = match.groups;
 
 const appScopes = [
   "read:jira-user",
-  "read:jira-work"
+  "read:jira-work",
+  "write:jira-work"
 ];
 
 const getAuthorizationLink = (redirectUrl) => {
