@@ -1,6 +1,5 @@
-import { Client, ClientError } from '@atlassianintegrations/polaris-forge-object-resolver';
+import { Client, ClientError, Matches } from '@atlassianintegrations/polaris-forge-object-resolver';
 import { WebAPICallResult } from '@slack/web-api';
-import { MessageMatch } from '../patterns/type';
 
 export interface ChannelQueryParams {
   channel?: string;
@@ -38,8 +37,8 @@ async function request(
   }
 }
 
-export async function getMessage(client: Client, match: MessageMatch) {
-  const { messageId, channelId } = match; 
+export async function getMessage(client: Client, match: Matches) {
+  const messageId = match?.["messageId"] || ''
   const messageTs = `${messageId.slice(
     0,
     messageId.length - 6
@@ -49,21 +48,19 @@ export async function getMessage(client: Client, match: MessageMatch) {
     client,
     '/api/reactions.get',
     {
-      query: { channel: channelId, timestamp: messageTs },
+      query: { channel: match?.['channelId'], timestamp: messageTs },
     },
   );
 
   return message;
 }
 
-export async function getChannel(client: Client, match: MessageMatch) {
-  const { channelId } = match; 
-
+export async function getChannel(client: Client, match: Matches) {
   const { channel } = await request(
     client,
     '/api/conversations.info',
     {
-      query: { channel: channelId },
+      query: { channel: match?.['channelId'] },
     },
     function handleChannelNotFound(res: WebAPICallResult) {
       // It might be that the user doesn't have access to this channel or they

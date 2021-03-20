@@ -23,10 +23,10 @@ export async function runSlack(event: EventPayload): Promise<ResolverResponse> {
 }
 
 export async function runAtlassian(event: EventPayload): Promise<ResolverResponse> {
-  const match = matchJiraIssue[0].exec(getResourceUrl(event))
+  const match = matchJiraIssue[0].exec(getResourceUrl(event) || '')
   const provider = new ObjectProvider({
     client: new Client({
-      baseUrl: `https://${match.groups.cloudName}.atlassian.net`,
+      baseUrl: `https://${match?.groups?.cloudName}.atlassian.net`,
     }),
     linkResolvers: {
       issue: {        
