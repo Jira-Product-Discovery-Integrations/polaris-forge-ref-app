@@ -1,6 +1,7 @@
 {
   "include": [
     "src/**/*.ts",
+    "push_example/**/*.ts",
   ],
   "exclude": [
     "node_modules"
@@ -8,7 +9,7 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true,

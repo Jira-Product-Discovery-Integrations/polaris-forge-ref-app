@@ -28,26 +28,39 @@ const CREATE_INSIGHT_MUTATION = gql`
 `;
 
 const client = new ApolloClient({
-  link: createHttpLink({ uri: "https://api-private.atlassian.com/graphql", fetch: require('node-fetch') }),
+  link: createHttpLink({
+    uri: "https://api-private.atlassian.com/graphql",
+    fetch: require("node-fetch"),
+  }),
   cache: new InMemoryCache(),
 });
 
-export const createInsight = (token, variables) => {
-    return client.mutate({
-        mutation: CREATE_INSIGHT_MUTATION,
-        variables: variables,
-        context: {
-          headers: {
-              Authorization: token,
-              'X-ExperimentalApi': 'polaris-v0'
-            },
-        }
-      })
-      .then((response: any) => {
-          const { data, errors } = response;
-          if (!data || errors || !data.createPolarisInsight || !data.createPolarisInsight.success || !data.createPolarisInsight.node.id) {
-            throw new Error(`Failed to create insight: ${JSON.stringify(data)}`)
-          }
-          return data.createPolarisInsight.node.id;
-      })
-}
+export const createInsight = (
+  token: string,
+  variables: any
+): Promise<string> => {
+  return client
+    .mutate({
+      mutation: CREATE_INSIGHT_MUTATION,
+      variables: variables,
+      context: {
+        headers: {
+          Authorization: token,
+          "X-ExperimentalApi": "polaris-v0",
+        },
+      },
+    })
+    .then((response: any) => {
+      const { data, errors } = response;
+      if (
+        !data ||
+        errors ||
+        !data.createPolarisInsight ||
+        !data.createPolarisInsight.success ||
+        !data.createPolarisInsight.node.id
+      ) {
+        throw new Error(`Failed to create insight: ${JSON.stringify(data)}`);
+      }
+      return data.createPolarisInsight.node.id;
+    });
+};

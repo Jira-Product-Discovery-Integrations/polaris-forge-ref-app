@@ -9,7 +9,11 @@
     "forge:appInfo": "polaris-forge-object-resolver forge:appInfo",
     "manifest": "eval $(cat .env) node manifest.js",
     "manifest:ci": "node manifest.js",
-    "push:example": "ts-node push_example"
+    "push:example": "ts-node push_example",
+    "lint:eslint": "eslint '{src,push_example}/**/*.ts' '*.js'",
+    "lint:fix": "npm run lint:eslint --fix && npm run lint:prettier --write",
+    "lint:prettier": "prettier '**/*.{json,md,ts}'",
+    "lint": "npm run lint:eslint && npm run lint:prettier --check"
   },
   "repository": {
     "type": "git",
@@ -23,13 +27,19 @@
     "@slack/web-api": "^6.0.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
-    "eslint": "^7.19.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-es": "^4.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "graphql-tag": "^2.11.0",
     "meow": "^9.0.0",
     "node-fetch": "^2.6.1",
+    "prettier": "^2.2.1",
     "string-env-interpolation": "^1.0.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"

@@ -1,2 +1,2 @@
-export { resolveSlackMessage } from './message';
-export { resolveJiraIssue } from './issue';
+export { resolveSlackMessage } from "./message";
+export { resolveJiraIssue } from "./issue";

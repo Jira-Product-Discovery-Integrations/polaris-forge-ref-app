@@ -1,4 +1,4 @@
-import { JSONSchema } from '@atlassianintegrations/polaris-forge-object-resolver';
+import { JSONSchema } from "@atlassianintegrations/polaris-forge-object-resolver";
 
 export interface ChannelFormatterParams {
   url: string;
@@ -12,23 +12,24 @@ export interface ChannelFormatterParams {
   };
 }
 
-export const formatJiraIssue = function formatJiraIssue(issue: any): JSONSchema.Data {
+export const formatJiraIssue = function formatJiraIssue(
+  issue: any
+): JSONSchema.Data {
   return {
     type: "card",
     group: {
       name: "Jira Issue",
-      id: `jira_issue_${issue.fields.issuetype.id}_${issue.fields.project.id}`
+      id: `jira_issue_${issue.fields.issuetype.id}_${issue.fields.project.id}`,
     },
     context: {
-      icon:
-        issue.fields.issuetype.iconUrl,
+      icon: issue.fields.issuetype.iconUrl,
       url: issue.self,
       title: `${issue.key}: ${issue.fields.summary}`,
     },
     properties: {
       watches: {
         name: "Watchers count",
-        value: issue.fields.watches.watchCount
+        value: issue.fields.watches.watchCount,
       },
       votes: {
         name: "Votes count",
@@ -40,8 +41,8 @@ export const formatJiraIssue = function formatJiraIssue(issue: any): JSONSchema.
       },
       type: {
         name: "Issue type",
-        value: issue.fields.issuetype.name
-      }
+        value: issue.fields.issuetype.name,
+      },
     },
-  }
+  };
 };
