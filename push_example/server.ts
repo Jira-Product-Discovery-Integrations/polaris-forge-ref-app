@@ -19,9 +19,11 @@ export const createServer = async (
               return;
             })
             .catch(console.error);
+          break;
+        default:
+          res.writeHead(200, { "Content-Type": "text/plain" });
+          res.end("Something wrong. Check logs.");
       }
-      res.writeHead(200, { "Content-Type": "text/plain" });
-      res.end("OK");
     })
     .listen(port);
 };

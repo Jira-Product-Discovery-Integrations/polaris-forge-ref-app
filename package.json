@@ -23,7 +23,7 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/atlassianlabs/polaris-forge-ref-app#readme",
   "dependencies": {
-    "@atlassianintegrations/polaris-forge-object-resolver": "0.0.13-next.6",
+    "@atlassianintegrations/polaris-forge-object-resolver": "0.0.13-next.9",
     "@slack/web-api": "^6.0.0"
   },
   "devDependencies": {

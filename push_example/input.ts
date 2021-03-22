@@ -24,7 +24,7 @@ export const createInsightInput = (
     ],
   };
   const data: JSONSchema.Data = {
-    type: "messages",
+    type: "card",
     group: {
       name: "Chat message",
       id: "chat_message",
@@ -35,20 +35,29 @@ export const createInsightInput = (
       url: "https://developer.atlassian.com",
       title: "New Shiny App",
     },
-    content: [
-      {
-        type: "messagesItem",
-        sender: {
-          name: "John Doe",
-        },
-        time: 1607521706765,
-        message:
-          typeof userMessage === "string" && userMessage.length > 0
-            ? userMessage
-            : "Spaceship is the super fund investing where the world is going. Because it's not just the future. It's your future.",
+    content: {
+      description: `new description: ${userMessage}`,
+    },
+    properties: {
+      reactions: {
+        name: "Reactions",
+        value: 11,
       },
-    ],
+      watchers_count: {
+        name: "Watchers count",
+        value: 31,
+      },
+      group: {
+        name: "Item group",
+        value: "pet project",
+      },
+      labels: {
+        name: "Labels",
+        value: ["important", "spaceship"],
+      },
+    },
   };
+
   return {
     cloudID: cloudID,
     projectID: projectID,
@@ -60,24 +69,6 @@ export const createInsightInput = (
         oauthClientId: clientId,
         url: "https://developer.atlassian.com",
         data: data,
-        properties: {
-          reactions: {
-            name: "Reactions",
-            value: 11,
-          },
-          watchers_count: {
-            name: "Watchers count",
-            value: 31,
-          },
-          group: {
-            name: "Item group",
-            value: "pet project",
-          },
-          labels: {
-            name: "Labels",
-            value: ["important", "spaceship"],
-          },
-        },
       },
       {
         oauthClientId: clientId,
