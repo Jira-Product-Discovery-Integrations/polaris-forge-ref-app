@@ -1,2 +1,2 @@
-export { formatSlackMessage } from './message';
-export { formatJiraIssue } from './issue';
+export { formatSlackMessage } from "./message";
+export { formatJiraIssue } from "./issue";

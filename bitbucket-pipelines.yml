@@ -6,6 +6,13 @@ definitions:
 
 pipelines:
   branches:
+    issue/*:
+      - step:
+          name: Build
+          script:
+            - npm i
+            - npm run lint
+            - npm run build
     master:
       - step:
           name: Sync with Github
