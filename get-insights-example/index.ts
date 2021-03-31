@@ -3,13 +3,14 @@
 import { getAccessToken } from "./jira/accessToken";
 import { getAccessibleResources } from "./jira/accessibleResources";
 import { getIssue } from "./jira/issue";
-import { createInsight } from "./polaris/createInsight";
-import { createInsightInput } from "./input";
+import { getPolarisInsights } from "./polaris/getPolarisInsights";
+import { getPolarisInsightsInput } from "./input";
 import { createServer } from "./server";
 import * as meow from "meow";
 import * as chalk from "chalk";
 import * as http from "http";
 import { ParsedUrlQuery } from "querystring";
+import { PolarisInsight } from "./polaris/types";
 
 global.fetch = require("node-fetch");
 
@@ -35,19 +36,11 @@ const cli = meow(
         type: "string",
         isRequired: true,
       },
-      userMessage: {
-        type: "string",
-      },
     },
   }
 );
 
-const {
-  issueUrl,
-  atlassianAppClientId,
-  atlassianAppClientSecret,
-  userMessage,
-} = cli.flags;
+const { issueUrl, atlassianAppClientId, atlassianAppClientSecret } = cli.flags;
 
 const matchJiraIssue = /^(?<cloudHost>https:\/\/.+\.atlassian\.net)\/browse\/(?<issueKey>.+-\d+)#?$/;
 
@@ -107,24 +100,38 @@ const onRequest = async (query: ParsedUrlQuery) => {
     }
     const issue = await getIssue(token, cloudHost, issueKey);
 
-    await createInsight(token, {
-      input: createInsightInput(
-        cloudId,
-        issue.fields.project.id,
-        issue.id,
-        atlassianAppClientId,
-        userMessage
-      ),
-    });
+    return await getPolarisInsights(
+      token,
+      getPolarisInsightsInput(cloudId, issue.fields.project.id, issue.id)
+    );
   } catch (err) {
     console.error(chalk.bold.red(err));
     process.exit(1);
   }
 };
 
-const onSuccess = (res: http.ServerResponse) => {
+const onSuccess = (
+  polarisInsights: PolarisInsight[],
+  res: http.ServerResponse
+) => {
+  let list = "";
+  for (const polarisInsight of polarisInsights) {
+    for (const snippet of polarisInsight.snippets) {
+      list += `
+        <li>
+          <ul>
+            <li>Snippet id: ${snippet.id}</li>
+            <li>Snippet data: ${JSON.stringify(snippet.data)}</li>
+            <li>Snippet properties: ${JSON.stringify(snippet.properties)}</li>
+          </ul>
+        </li>
+      `;
+    }
+  }
   res.end(
-    `<meta charset="UTF-8"> <h3 style="margin: 40px auto; text-align: center;">Success 🥳. Open the issue <a href="${issueUrl}" target="_blank">${issueUrl}</a> and navigate to Data tab to see results.</h3>`
+    `<meta charset="UTF-8" />
+      ${!polarisInsights.length ? "No data points added to this issue" : list}
+    `
   );
 };
 

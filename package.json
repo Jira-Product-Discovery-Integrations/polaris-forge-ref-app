@@ -9,8 +9,9 @@
     "forge:appInfo": "polaris-forge-object-resolver forge:appInfo",
     "manifest": "eval $(cat .env) node manifest.js",
     "manifest:ci": "node manifest.js",
-    "push:example": "ts-node push_example",
-    "lint:eslint": "eslint '{src,push_example}/**/*.ts' '*.js'",
+    "push:example": "ts-node push-example",
+    "get-insights:example": "ts-node get-insights-example",
+    "lint:eslint": "eslint '{src,push-example,get-insights-example}/**/*.ts' '*.js'",
     "lint:fix": "npm run lint:eslint --fix && npm run lint:prettier --write",
     "lint:prettier": "prettier '**/*.{json,md,ts}'",
     "lint": "npm run lint:eslint && npm run lint:prettier --check"
