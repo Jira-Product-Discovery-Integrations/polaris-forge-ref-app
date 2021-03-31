@@ -43,6 +43,16 @@ export const formatJiraIssue = function formatJiraIssue(
         name: "Issue type",
         value: issue.fields.issuetype.name,
       },
+      task_duration: {
+        name: "Task duration",
+        type: "duration",
+        value: 1000 * 30 * 30,
+      },
+      user_createdat: {
+        name: "User created at",
+        type: "timestamp",
+        value: new Date().getTime() + 1000 * 30 * 30,
+      },
     },
   };
 };
