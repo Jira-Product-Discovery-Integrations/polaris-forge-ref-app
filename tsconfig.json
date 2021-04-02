@@ -1,7 +1,8 @@
 {
   "include": [
     "src/**/*.ts",
-    "push_example/**/*.ts",
+    "push-example/**/*.ts",
+    "get-insights-example/**/*.ts",
   ],
   "exclude": [
     "node_modules"
