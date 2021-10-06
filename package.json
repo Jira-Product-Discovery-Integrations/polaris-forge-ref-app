@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "build": "tsc -b",
     "externalAuth:set": "polaris-forge-object-resolver externalAuth:set",
     "forge:appInfo": "polaris-forge-object-resolver forge:appInfo",
@@ -40,6 +41,7 @@
     "graphql-tag": "^2.11.0",
     "meow": "^9.0.0",
     "node-fetch": "^2.6.1",
+    "npm-force-resolutions": "^0.0.10",
     "prettier": "^2.2.1",
     "string-env-interpolation": "^1.0.1",
     "ts-node": "^9.1.1",
