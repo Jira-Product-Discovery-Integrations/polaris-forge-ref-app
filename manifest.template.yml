@@ -9,10 +9,10 @@ modules:
       authType: "oauth2"
     - key: atlassian-object-provider
       function: atlassian-resolver
-      domains: ["atlassian.net", "jira-dev.com"]
+      domains: ["atlassian.net"]
       subdomain: true
       linkPattern: >-
-        ^https:\/\/(.+)\.(atlassian\.net|jira-dev\.com)\/browse\/(.+-\d+)#?$
+        ^https:\/\/(.+)\.(atlassian\.net)\/browse\/(.+-\d+)#?$
       authType: "api_key"
       authHint: "Please provide API token from <a href=\"http://id.atlassian.com/manage-profile/security/api-tokens\" target=\"_blank\">http://id.atlassian.com/manage-profile/security/api-tokens</a> in format \"$email:$api_token\""
   externalAuth:
@@ -47,3 +47,10 @@ modules:
 app:
   id: ari:cloud:ecosystem::app/${FORGE_APP_ID}
   name: ${FORGE_APP_NAME} 
+
+permissions:
+  external:
+    fetch:
+      backend:
+        - 'slack.com'
+        - '*.atlassian.net'
