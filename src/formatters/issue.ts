@@ -26,6 +26,14 @@ export const formatJiraIssue = function formatJiraIssue(
       url: issue.self,
       title: `${issue.key}: ${issue.fields.summary}`,
     },
+    content: {
+      description: "Some long description", // optional
+      preview: {
+        type: "image",
+        src:
+          "https://content.fortune.com/wp-content/uploads/2020/02/100-Best-Companies-2020-Atlassian.jpg",
+      }, // optional
+    },
     properties: {
       watches: {
         name: "Watchers count",
