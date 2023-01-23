@@ -98,7 +98,8 @@ const onRequest = async (query: ParsedUrlQuery) => {
         "Issue url host doesn't not match to any accessible resource"
       );
     }
-    const issue = await getIssue(token, cloudHost, issueKey);
+
+    const issue = await getIssue(token, cloudId, issueKey);
 
     return await getPolarisInsights(
       token,
