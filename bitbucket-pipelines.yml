@@ -15,6 +15,12 @@ pipelines:
             - npm run build
     master:
       - step:
+          name: Build
+          script:
+            - npm i
+            - npm run lint
+            - npm run build
+      - step:
           name: Sync with Github
           script:
             - (umask  077 ; echo $GITHUB_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
