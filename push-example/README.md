@@ -12,7 +12,7 @@ npm i
 
 2. Create Atlassian 3LO app: [link](https://developer.atlassian.com/console/myapps/create-3lo-app/)
 3. Once the app is created go to `Permissions` tab and click `Add` on `Jira platform REST API` option. Then click `Configure` and enable those scopes: `View user profiles`, `View Jira issue data`, `Create and manage issues`.
-4. Next go to `Authorization` tab and set `Callback URL` to `https://localhost:7777`
+4. Next go to `Authorization` tab and set `Callback URL` to `http://localhost:7777`
 5. Open `Settings` tab and scroll to `Authentication details` panel at the bottom.
 6. Run command to start 3LO ref app:
 
