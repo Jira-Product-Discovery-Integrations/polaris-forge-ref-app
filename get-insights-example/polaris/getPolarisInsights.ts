@@ -4,7 +4,7 @@ import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { PolarisInsight } from "./types";
 
-const CREATE_INSIGHT_MUTATION = gql`
+const GET_INSIGHTS_QUERY = gql`
   query getPolarisInsights($project: ID!, $container: ID) {
     polarisInsights(project: $project, container: $container) {
       id
@@ -33,7 +33,7 @@ export const getPolarisInsights = (
 ): Promise<PolarisInsight[]> => {
   return client
     .query({
-      query: CREATE_INSIGHT_MUTATION,
+      query: GET_INSIGHTS_QUERY,
       variables: variables,
       context: {
         headers: {
