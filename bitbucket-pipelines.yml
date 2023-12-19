@@ -24,7 +24,7 @@ pipelines:
           name: Sync with Github
           script:
             - (umask  077 ; echo $GITHUB_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
-            - git remote add origin_github git@github.com:Atlassian-integrations/polaris-forge-ref-app.git
+            - git remote add origin_github git@github.com:Jira-Product-Discovery-Integrations/polaris-forge-ref-app.git
             - git pull origin_github master
             - git push -u origin_github master
       # - step:
