@@ -1,4 +1,4 @@
-### Polaris Unfurling Reference Application Readme
+### Polaris Unfurling Reference Application Readme2
 
 When a user adds a URL from your application to a Polaris idea, Polaris will try to unfurl it to retrieve more data, using a provider for your app. 
 This data can then be used to prioritize ideas in Polaris. This refapp shows you how to create one of these unfurl providers. 
