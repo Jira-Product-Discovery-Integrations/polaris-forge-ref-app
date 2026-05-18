@@ -387,16 +387,19 @@ mutation createInsight($input: CreatePolarisInsightInput!) {
         "oauthClientId": "<CLIENT_ID>",
         "url": "https://your-link.com",
         "data": {
-          "type": "card",
+          "type": "quotes",
           "group": {"name": "Group Name", "id": "group_id"},
           "context": {
             "icon": "https://example.com/icon.png",
             "url": "https://your-link.com",
             "title": "Link Title"
           },
-          "content": {
-            "description": "Text shown in the data card"
-          },
+          "content": [
+            {
+              "type": "quotesItem",
+              "quote": "Text shown in the data card"
+            }
+          ],
           "properties": {
             "reactions": {"name": "Reactions", "value": 7},
             "labels": {"name": "Labels", "value": ["tag1", "tag2"]}
@@ -413,7 +416,11 @@ mutation createInsight($input: CreatePolarisInsightInput!) {
 > - `cloudID`, `projectID`, `issueID` are **plain IDs**, not ARIs (unlike the query variables)
 > - `data: []` is required at the top level (empty array)
 > - The mutation returns `node` (NOT `insight`) — check `success: true` before reading `node.id`
-> - `snippets[].data` is a structured card object, not a plain string
+> - `snippets[].data` is a structured object — see schema notes below, NOT a plain string
+> - `snippets[].data.type` must be `"quotes"` (NOT `"card"`) — the API validates against a strict schema
+> - `snippets[].data.context` requires `icon`, `url`, and `title` fields — `icon` is mandatory
+> - `snippets[].data.content` must be an **array** of objects with `type: "quotesItem"` and a `quote` string field
+> - `snippets[].data.group` is required — provide `{ "name": "...", "id": "..." }`
 
 ### curl example (write payload to file first)
 ```bash
@@ -428,7 +435,7 @@ cat > /tmp/push_payload.json << 'PAYLOAD'
       "issueID": "<ISSUE_ID>",
       "description": {"version": 1, "type": "doc", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Your description"}]}]},
       "data": [],
-      "snippets": [{"oauthClientId": "<CLIENT_ID>", "url": "https://your-link.com", "data": {"type": "card", "context": {"url": "https://your-link.com", "title": "Your Title"}, "content": {"description": "Your card text"}}}]
+      "snippets": [{"oauthClientId": "<CLIENT_ID>", "url": "https://your-link.com", "data": {"type": "quotes", "group": {"name": "Group Name", "id": "group_id"}, "context": {"icon": "https://example.com/icon.png", "url": "https://your-link.com", "title": "Your Title"}, "content": [{"type": "quotesItem", "quote": "Your card text"}]}}]
     }
   }
 }
@@ -440,6 +447,8 @@ curl -s -X POST "https://api-private.atlassian.com/graphql" \
   -H "X-ExperimentalApi: polaris-v0" \
   -d @/tmp/push_payload.json
 ```
+
+> **Note on the curl example above:** The `snippets[].data` payload uses `"type": "quotes"` with `"content"` as an array of `{ "type": "quotesItem", "quote": "..." }` objects. The `"context"` object requires `"icon"`, `"url"`, and `"title"`. The `"group"` object is also required.
 
 ### Successful response
 ```json
@@ -498,3 +507,10 @@ curl -s -X POST "https://api-private.atlassian.com/graphql" \
 - Issue: `SPC-19` (type: Feature / JPD idea)
 - Successfully: fetched 2 existing insights, created 1 new insight with description + snippet
 - Reference repo cloned, deps installed with `npm install`, ran via `npx ts-node`
+
+### Additional findings (SPC-5, same session):
+- `snippets[].data.type` must be `"quotes"` — `"card"` is rejected by the API schema validator
+- `snippets[].data.content` must be an **array** of `{ "type": "quotesItem", "quote": "..." }` — not an object
+- `snippets[].data.context.icon` is **required** (not optional)
+- `snippets[].data.group` is **required** — `{ "name": "...", "id": "..." }`
+- Successfully created 1 new insight on SPC-5 and fetched all 3 insights for that idea
