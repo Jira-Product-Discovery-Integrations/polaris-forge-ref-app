@@ -205,6 +205,9 @@ query getPolarisInsights($project: ID!, $container: ID) {
   polarisInsights(project: $project, container: $container) {
     id
     aaid
+    container {
+      id
+    }
     description
     snippets {
       id
@@ -234,7 +237,7 @@ curl -s -X POST "https://api-private.atlassian.com/graphql" \
   -H "Content-Type: application/json" \
   -H "X-ExperimentalApi: polaris-v0" \
   -d '{
-    "query": "query getPolarisInsights($project: ID!, $container: ID) { polarisInsights(project: $project, container: $container) { id aaid description snippets { id oauthClientId data url properties } created updated } }",
+    "query": "query getPolarisInsights($project: ID!, $container: ID) { polarisInsights(project: $project, container: $container) { id aaid container { id } description snippets { id oauthClientId data url properties } created updated } }",
     "variables": {
       "project": "ari:cloud:jira:<CLOUD_ID>:project/<PROJECT_ID>",
       "container": "ari:cloud:jira:<CLOUD_ID>:issue/<ISSUE_ID>"
@@ -250,6 +253,9 @@ curl -s -X POST "https://api-private.atlassian.com/graphql" \
       {
         "id": "ari:cloud:jira:<CLOUD_ID>:polaris-insight/8583766",
         "aaid": "557057:...",
+        "container": {
+          "id": "ari:cloud:jira:<CLOUD_ID>:issue/<ISSUE_ID>"
+        },
         "description": {
           "type": "doc",
           "version": 1,
@@ -286,6 +292,9 @@ query getAllPolarisInsights($project: ID!) {
   polarisInsights(project: $project) {
     id
     aaid
+    container {
+      id
+    }
     description
     snippets {
       id
@@ -318,7 +327,7 @@ curl -s -X POST "https://api-private.atlassian.com/graphql" \
   -H "Content-Type: application/json" \
   -H "X-ExperimentalApi: polaris-v0" \
   -d '{
-    "query": "query getAllPolarisInsights($project: ID!) { polarisInsights(project: $project) { id aaid description snippets { id oauthClientId data url properties } created updated } }",
+    "query": "query getAllPolarisInsights($project: ID!) { polarisInsights(project: $project) { id aaid container { id } description snippets { id oauthClientId data url properties } created updated } }",
     "variables": {
       "project": "ari:cloud:jira:<CLOUD_ID>:project/<PROJECT_ID>"
     }
@@ -344,6 +353,9 @@ mutation createInsight($input: CreatePolarisInsightInput!) {
     node {
       id
       aaid
+      container {
+        id
+      }
       description
       snippets {
         data
@@ -414,7 +426,7 @@ mutation createInsight($input: CreatePolarisInsightInput!) {
 # Write payload to file
 cat > /tmp/push_payload.json << 'PAYLOAD'
 {
-  "query": "mutation createInsight($input: CreatePolarisInsightInput!) { createPolarisInsight(input: $input) { success errors { message } node { id snippets { id data url properties } created updated } } }",
+  "query": "mutation createInsight($input: CreatePolarisInsightInput!) { createPolarisInsight(input: $input) { success errors { message } node { id container { id } snippets { id data url properties } created updated } } }",
   "variables": {
     "input": {
       "cloudID": "<CLOUD_ID>",
@@ -444,6 +456,9 @@ curl -s -X POST "https://api-private.atlassian.com/graphql" \
       "errors": null,
       "node": {
         "id": "ari:cloud:jira:<CLOUD_ID>:polaris-insight/8583766",
+        "container": {
+          "id": "ari:cloud:jira:<CLOUD_ID>:issue/<ISSUE_ID>"
+        },
         "snippets": [
           {
             "id": "ari:cloud:jira:<CLOUD_ID>:polaris-snippet/9441549",
